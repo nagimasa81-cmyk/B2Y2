@@ -61,12 +61,16 @@ class App:
     def convert(self,bat,name):
         steps=['      - uses: actions/checkout@v4']
         if 'pyinstaller' in bat.lower():
-            steps += [
+            
+steps += [
 """      - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"""",
+          python-version: "3.11"
+""",
 """      - name: Install PyInstaller
-        run: pip install pyinstaller"""]
+        run: pip install pyinstaller
+"""
+]
 
         py_target=None
         m=re.search(r'pyinstaller.*?([A-Za-z0-9_\/.-]+\.py)',bat,re.I)
