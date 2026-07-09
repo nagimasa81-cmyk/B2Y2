@@ -1,0 +1,31 @@
+
+name: Build BAT2YML EXE
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Build EXE
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name BAT2YML_Update BAT2YML_Update.py
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: BAT2YML_Update_EXE
+          path: dist/BAT2YML_Update.exe
